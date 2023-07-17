@@ -23,7 +23,7 @@ const feedbackSchema = mongoose.Schema(
             required: true
         },
         like:{
-            type: Number,
+            type: String,
             required: true
         }
     },
