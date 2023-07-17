@@ -6,10 +6,12 @@ app.use(express.json())
 
 //tables
 const Users = require('./models/usersModel')
+const Feedback = require('./models/feedbackModel')
 
 
 
 // Routes
+
 
 //users
 app.get('/data/users', async(req, res)=>{
@@ -33,6 +35,54 @@ app.post('/add/user', async(req, res)=>{
 
 
 
+//feedback
+app.get('/data/feedback', async(req, res)=>{
+    try {
+        const feedback = await Feedback.find({})
+        res.status(200).json(feedback)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+
+app.post('/add/feedback', async(req, res)=>{
+    try {
+        const feedback = await Feedback.create(req.body)
+        res.status(200).json(feedback)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+
+app.put('/update/feedback/:id', async(req, res)=>{
+    try {
+        const {id} = req.params
+        const feedback = await Feedback.findByIdAndUpdate(id, req.body)
+        if(!feedback){
+            return res.status(404).json({message: `cannot find any feedback with ID ${id}`})
+        }
+        const updateFeedback = await Feedback.findById(id)
+        res.status(200).json(updateFeedback)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
+
+
+app.delete('/delete/feedback/:id', async(req, res)=>{
+    try {
+        const {id} = req.params
+        const feedback = await Feedback.findByIdAndDelete(id)
+        if (!feedback) {
+            return res.status(404).json({message: `cannot find any feedback with ID ${id}`})
+        }
+        res.status(200).json(feedback)
+    } catch (error) {
+        res.status(500).json({message: error.message})
+    }
+})
 
 
 

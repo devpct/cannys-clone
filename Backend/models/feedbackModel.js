@@ -1,7 +1,11 @@
 const mongoose = require('mongoose')
 
-const usersSchema = mongoose.Schema(
+const feedbackSchema = mongoose.Schema(
     {
+        image:{
+            type: String,
+            required: true
+        },
         nameLastname: {
             type: String,
             required: true
@@ -10,24 +14,24 @@ const usersSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        password:{
+        time_date:{
             type: String,
             required: true
         },
-        email:{
+        descriptions:{
             type: String,
             required: true
         },
-        image:{
-            type: String,
+        like:{
+            type: Number,
             required: true
-        },
+        }
     },
     {
         versionKey: false
     }
 )
 
-const Users = mongoose.model('Users', usersSchema)
+const Feedback = mongoose.model('Feedback', feedbackSchema)
 
-module.exports = Users
+module.exports = Feedback
