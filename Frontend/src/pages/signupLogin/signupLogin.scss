@@ -4,27 +4,27 @@ html,body {
   position: relative;
   min-height: 98vh;
   background-color: #E1E8EE;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: "Fira Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 .form-structor {
   background-color: #222;
   border-radius: 15px;
-  height: 550px;
-  width: 350px;
+  height: 500px;
+  max-width: 650px;
   position: relative;
   overflow: hidden;
-  
+  margin: auto;
+  margin-top: 22vh;
+
   &::after {
     content: '';
     opacity: .8;
     position: absolute;
-    top: 0;right:0;bottom:0;left:0;
+    top:0;right:0;bottom:0;left:0;
     // background-repeat: no-repeat;
     // background-position: left bottom;
     // background-size: 500px;

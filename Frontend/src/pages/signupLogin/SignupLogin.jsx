@@ -155,7 +155,7 @@ function SignupLogin() {
         </div>
 
       </div>
-      <Add userData={userData} signupClick={signupClick}/>
+      <Add userData={userData} signupClick={signupClick} setSignupClick={setSignupClick} setUserData={setUserData}/>
     </>
   )
 }
