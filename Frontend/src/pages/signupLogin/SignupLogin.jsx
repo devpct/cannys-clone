@@ -1,21 +1,32 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import Add from '../../hooks/users/add'
+import { ToastContainer } from 'react-toastify'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Add from '../../hooks/users/Add'
+import Data from '../../hooks/users/data'
 import './signupLogin.scss'
 
 function SignupLogin() {
 
-  const [userData, setUserData] = useState({
+  const [userDataSignup, setUserDataSignup] = useState({
     nameLastname: '',
     username: '',
     password: '',
     email: '',
     profile: '',
   })
+
+  const [userDataLogin, setUserDataLogin] = useState({
+    email: '',
+    password: ''
+  })
+
   const [isLoginFormVisible, setLoginFormVisible] = useState(false)
   const [spanSignup, setSpanSignup] = useState({ display: 'none' })
   const [spanLogin, setSpanLogin] = useState({ display: 'unset' })
   const [signupClick, setSignupClick] = useState(false)
+  const [loginClick, setLoginClick] = useState(false)
 
   useEffect(() => {
     document.title = 'Cannys Clone | Signup'
@@ -43,28 +54,115 @@ function SignupLogin() {
     document.title = 'Cannys Clone | Login'
   }
 
-  const handleInputChange = (event) => {
+  const handleInputChangeSignup = (event) => {
     const { name, value } = event.target
-    setUserData((data) => ({
+    setUserDataSignup((data) => ({
       ...data,
       [name]: value,
     }))
   }
 
-  const handleSignUpClick = () => {
-    if (
-      userData.nameLastname.trim() &&
-      userData.username.trim() &&
-      userData.password.trim() &&
-      userData.email.trim() &&
-      userData.profile.trim()
-    ) {
-      setSignupClick(true)
-    }
+  const handleInputChangeLogin = (event) => {
+    const { name, value } = event.target
+    setUserDataLogin((data) => ({
+      ...data,
+      [name]: value,
+    }))
   }
 
+  // Check Email
+  function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+  }
+  
+  let checkEmail = false
+  const handleSignUpClick = () => {
+
+      if (
+        userDataSignup.nameLastname.trim() &&
+        userDataSignup.username.trim() &&
+        userDataSignup.password.trim() &&
+        userDataSignup.email.trim() &&
+        userDataSignup.profile.trim()
+        ) 
+        {
+          if (validateEmail(userDataSignup.email)) {
+            checkEmail = false
+          }else{
+            checkEmail = true
+            toast.warn('The email is incorrect', {
+              className: 'custom-toast',
+              position: "bottom-center",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+          })
+          }
+          if (!checkEmail) {
+          setSignupClick(true) 
+          }
+        }
+        else{
+          toast.warn('Fill in the information completely', {
+            className: 'custom-toast',
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        }    
+  }
+      
   const handleLogInClick = () => {
-    // Handle login click
+
+    if (
+      userDataLogin.email.trim() &&
+      userDataLogin.password.trim() 
+      ) 
+      {
+        if (validateEmail(userDataLogin.email)) {
+          checkEmail = false
+        }else{
+          checkEmail = true
+          toast.warn('The email is incorrect', {
+            className: 'custom-toast',
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
+        }
+       if (!checkEmail) {
+         setLoginClick(true) 
+        } 
+
+      }
+      else{
+        toast.warn('Fill in the information completely', {
+          className: 'custom-toast',
+          position: "bottom-center",
+          autoClose: 4000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }
   }
 
   return (
@@ -87,8 +185,8 @@ function SignupLogin() {
               name="nameLastname"
               className="input"
               placeholder="First name and Last name"
-              value={userData.nameLastname}
-              onChange={handleInputChange}
+              value={userDataSignup.nameLastname}
+              onChange={handleInputChangeSignup}
               required
             />
             <input
@@ -96,8 +194,8 @@ function SignupLogin() {
               name="username"
               className="input"
               placeholder="Username"
-              value={userData.username}
-              onChange={handleInputChange}
+              value={userDataSignup.username}
+              onChange={handleInputChangeSignup}
               required
             />
             <input
@@ -105,8 +203,8 @@ function SignupLogin() {
               name="password"
               className="input"
               placeholder="Password"
-              value={userData.password}
-              onChange={handleInputChange}
+              value={userDataSignup.password}
+              onChange={handleInputChangeSignup}
               required
             />
             <input
@@ -114,8 +212,8 @@ function SignupLogin() {
               name="email"
               className="input"
               placeholder="Email"
-              value={userData.email}
-              onChange={handleInputChange}
+              value={userDataSignup.email}
+              onChange={handleInputChangeSignup}
               required
             />
             <input
@@ -123,8 +221,8 @@ function SignupLogin() {
               name="profile"
               className="input"
               placeholder="Profile photo link"
-              value={userData.profile}
-              onChange={handleInputChange}
+              value={userDataSignup.profile}
+              onChange={handleInputChangeSignup}
               required
             />
           </div>
@@ -145,8 +243,24 @@ function SignupLogin() {
               </h2>
             </Link>
             <div className="form-holder">
-              <input type="email" className="input" placeholder="Email" />
-              <input type="password" className="input" placeholder="Password" />
+            <input
+              type="email"
+              name="email"
+              className="input"
+              placeholder="Email"
+              value={userDataLogin.email}
+              onChange={handleInputChangeLogin}
+              required
+            />
+            <input
+              type="password"
+              name="password"
+              className="input"
+              placeholder="Password"
+              value={userDataLogin.password}
+              onChange={handleInputChangeLogin}
+              required
+            />
             </div>
             <button className="submit-btn" onClick={handleLogInClick}>
               Log in
@@ -155,7 +269,20 @@ function SignupLogin() {
         </div>
 
       </div>
-      <Add userData={userData} signupClick={signupClick} setSignupClick={setSignupClick} setUserData={setUserData}/>
+      <ToastContainer />
+      <Add 
+      userDataSignup={userDataSignup} 
+      signupClick={signupClick} 
+      setSignupClick={setSignupClick} 
+      setUserDataSignup={setUserDataSignup}
+      handleLogInTextClick={handleLogInTextClick}
+      />
+      <Data
+      loginClick={loginClick} 
+      setLoginClick={setLoginClick}
+      userDataLogin={userDataLogin} 
+      setUserDataLogin={setUserDataLogin}
+      />
     </>
   )
 }

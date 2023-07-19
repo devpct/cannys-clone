@@ -2,7 +2,6 @@
 
 html,body {
   position: relative;
-  min-height: 98vh;
   background-color: #E1E8EE;
   font-family: "Fira Sans", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -273,4 +272,8 @@ html,body {
   .change-url{
     text-decoration: none;
   }
+}
+
+.custom-toast {
+  width: max-content;
 }
