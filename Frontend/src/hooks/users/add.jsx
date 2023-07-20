@@ -51,6 +51,7 @@ function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, h
         .catch(error => {
           const errroMessage = error.response.data.message
           const quotedWord = findQuotedWord(errroMessage)
+          console.log(errroMessage)
           if (quotedWord === 'nameLastname') {
             toast.warn('First and last name must be less than 50 letters', {
               className: 'custom-toast',
@@ -104,6 +105,32 @@ function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, h
           }
           else if (quotedWord === 'image') {
             toast.warn('The photo link must be less than 400 characters', {
+              className: 'custom-toast',
+              position: "bottom-center",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+          }
+          else if (errroMessage === 'This username is already registered') {
+            toast.warn('This username is already registered', {
+              className: 'custom-toast',
+              position: "bottom-center",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+          }
+          else if (errroMessage === 'Email is already registered') {
+            toast.warn('Email is already registered', {
               className: 'custom-toast',
               position: "bottom-center",
               autoClose: 4000,

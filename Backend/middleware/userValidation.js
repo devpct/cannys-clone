@@ -1,5 +1,6 @@
 const Joi = require('joi');
 const crypto = require('crypto')
+  
 
 // Joi validation middleware for user input
 const createUserValidation = (req, res, next) => {
@@ -20,6 +21,7 @@ const createUserValidation = (req, res, next) => {
 
         const hashedPassword = crypto.createHash('md5').update(req.body.password).digest('hex')
         req.body.password = hashedPassword
+
 
         next()
     } catch (error) {
