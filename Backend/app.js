@@ -1,11 +1,13 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const config = require('./config/config')
+const userRoutes = require('./routes/userRoutes')
+const feedbackRoutes = require('./routes/feedbackRoutes')
+const errorMiddleware = require('./middleware/errorMiddleware')
 const cors = require('cors')
 
 const app = express()
 app.use(express.json(), cors())
-
 
 // Connecting to MongoDB database
 mongoose
@@ -26,7 +28,8 @@ mongoose
 })
 
 // Connecting routes
-const userRoutes = require('./routes/userRoutes')
-const feedbackRoutes = require('./routes/feedbackRoutes')
 app.use(userRoutes)
 app.use(feedbackRoutes)
+app.use(errorMiddleware)
+
+module.exports = app

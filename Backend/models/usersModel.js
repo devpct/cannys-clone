@@ -6,19 +6,19 @@ const usersSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        username:{
+        username: {
             type: String,
             required: true
         },
-        password:{
+        password: {
             type: String,
             required: true
         },
-        email:{
+        email: {
             type: String,
             required: true
         },
-        image:{
+        image: {
             type: String,
             required: true
         },

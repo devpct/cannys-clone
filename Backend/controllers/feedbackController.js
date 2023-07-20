@@ -1,5 +1,5 @@
 const Feedback = require('../models/feedbackModel')
-
+const createFeedbackValidation = require('../middleware/feedbackValidation')
 
 // Get all feedbacks
 const getAllFeedback = (req, res) => {
@@ -15,6 +15,13 @@ const getAllFeedback = (req, res) => {
 
 // Create a new feedback
 const createFeedback = (req, res) => {
+
+    createFeedbackValidation(req, res, (error) => {
+        if (error) {
+            return res.status(400).json({ message: error.message })
+        }
+    })
+
     Feedback.create(req.body)
         .then((feedback) => {
             res.json(feedback)

@@ -1,6 +1,5 @@
 const User = require('../models/usersModel')
 
-
 // Get all users
 const getAllUsers = (req, res) => {
     User.find({})
