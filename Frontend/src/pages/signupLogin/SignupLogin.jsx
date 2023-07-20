@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
@@ -27,6 +27,7 @@ function SignupLogin() {
   const [spanLogin, setSpanLogin] = useState({ display: 'unset' })
   const [signupClick, setSignupClick] = useState(false)
   const [loginClick, setLoginClick] = useState(false)
+  const LoginPage = useNavigate()
 
   useEffect(() => {
     document.title = 'Cannys Clone | Signup'
@@ -52,6 +53,7 @@ function SignupLogin() {
     setSpanSignup({ display: 'unset' })
     setSpanLogin({ display: 'none' })
     document.title = 'Cannys Clone | Login'
+    LoginPage('/login')
   }
 
   const handleInputChangeSignup = (event) => {
@@ -69,14 +71,7 @@ function SignupLogin() {
       [name]: value,
     }))
   }
-
-  // Check Email
-  function validateEmail(email) {
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailPattern.test(email);
-  }
   
-  let checkEmail = false
   const handleSignUpClick = () => {
 
       if (
@@ -86,27 +81,7 @@ function SignupLogin() {
         userDataSignup.email.trim() &&
         userDataSignup.profile.trim()
         ) 
-        {
-          if (validateEmail(userDataSignup.email)) {
-            checkEmail = false
-          }else{
-            checkEmail = true
-            toast.warn('The email is incorrect', {
-              className: 'custom-toast',
-              position: "bottom-center",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-          })
-          }
-          if (!checkEmail) {
-          setSignupClick(true) 
-          }
-        }
+        { setSignupClick(true) }
         else{
           toast.warn('Fill in the information completely', {
             className: 'custom-toast',
@@ -129,26 +104,7 @@ function SignupLogin() {
       userDataLogin.password.trim() 
       ) 
       {
-        if (validateEmail(userDataLogin.email)) {
-          checkEmail = false
-        }else{
-          checkEmail = true
-          toast.warn('The email is incorrect', {
-            className: 'custom-toast',
-            position: "bottom-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
-        }
-       if (!checkEmail) {
          setLoginClick(true) 
-        } 
-
       }
       else{
         toast.warn('Fill in the information completely', {
@@ -201,6 +157,7 @@ function SignupLogin() {
             <input
               type="password"
               name="password"
+              maxLength={8}
               className="input"
               placeholder="Password"
               value={userDataSignup.password}
@@ -255,6 +212,7 @@ function SignupLogin() {
             <input
               type="password"
               name="password"
+              maxLength={8}
               className="input"
               placeholder="Password"
               value={userDataLogin.password}
