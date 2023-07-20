@@ -6,9 +6,9 @@
     "node": "^20.4.0"
   },
   "scripts": {
-    "start": "node server.js",
-    "serve": "node server.js",
-    "dev": "nodemon server.js"
+    "start": "node app.js",
+    "serve": "node app.js",
+    "dev": "nodemon app.js"
   },
   "name": "backend",
   "version": "1.0.0",
