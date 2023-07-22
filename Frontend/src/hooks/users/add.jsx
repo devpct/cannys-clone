@@ -17,7 +17,13 @@ function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, h
 
   useEffect(() => {
     if (signupClick === true) {
-
+      if (userDataSignup.profile.length === 0) {
+        setUserDataSignup(prevUserDataSignup => ({
+          ...prevUserDataSignup,
+          profile: 'null'
+        }))
+      }
+      
       setSignupClick(false)
       axios.post('http://localhost:3000/add/user', {
         nameLastname: userDataSignup.nameLastname,
@@ -105,32 +111,6 @@ function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, h
           }
           else if (quotedWord === 'image') {
             toast.warn('The photo link must be less than 400 characters', {
-              className: 'custom-toast',
-              position: "bottom-center",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            })
-          }
-          else if (errroMessage === 'This username is already registered') {
-            toast.warn('This username is already registered', {
-              className: 'custom-toast',
-              position: "bottom-center",
-              autoClose: 4000,
-              hideProgressBar: false,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-              progress: undefined,
-              theme: "light",
-            })
-          }
-          else if (errroMessage === 'Email is already registered') {
-            toast.warn('Email is already registered', {
               className: 'custom-toast',
               position: "bottom-center",
               autoClose: 4000,

@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import {useRoutes} from 'react-router-dom'
 import router from './router'
-// import Context from './context/context'
+import Context from './context/context'
 
 function App() {
 
@@ -9,9 +9,9 @@ function App() {
 
   return (
     <>
-    {/* <Context> */}
+    <Context>
       {routers}
-    {/* </Context> */}
+    </Context>
     </>
   )
 }

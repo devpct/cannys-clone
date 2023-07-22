@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import { toast } from 'react-toastify'
+import { UsersDataContext } from '../../context/home/HomeContext'
 import 'react-toastify/dist/ReactToastify.css'
 import Add from '../../hooks/users/Add'
-import Data from '../../hooks/users/data'
+import Data from '../../hooks/users/Data'
 import './signupLogin.scss'
 
 function SignupLogin() {
+
+  const [userData, setUserData] = useState(null)
 
   const [userDataSignup, setUserDataSignup] = useState({
     nameLastname: '',
@@ -22,26 +25,31 @@ function SignupLogin() {
     password: ''
   })
 
+  
   const [isLoginFormVisible, setLoginFormVisible] = useState(false)
   const [spanSignup, setSpanSignup] = useState({ display: 'none' })
   const [spanLogin, setSpanLogin] = useState({ display: 'unset' })
   const [signupClick, setSignupClick] = useState(false)
   const [loginClick, setLoginClick] = useState(false)
+  const [usersData, setUsersData] = useContext(UsersDataContext)
+  const [betUserData, setBetUserData] = useState(false)
+
   const LoginPage = useNavigate()
 
   useEffect(() => {
-    document.title = 'Cannys Clone | Signup'
-
+    document.body.style.backgroundColor = '#E1E8EE';
     const currentPath = window.location.pathname
-
     if (currentPath === '/signup') {
+      document.title = 'Cannys Clone | Signup'
       handleSignUpTextClick()
     } else {
       handleLogInTextClick()
     }
+    setBetUserData(true)
   }, [])
 
   const handleSignUpTextClick = () => {
+    setBetUserData(true)
     setLoginFormVisible(false)
     setSpanSignup({ display: 'none' })
     setSpanLogin({ display: 'unset' })
@@ -49,6 +57,7 @@ function SignupLogin() {
   }
 
   const handleLogInTextClick = () => {
+    setBetUserData(true)
     setLoginFormVisible(true)
     setSpanSignup({ display: 'unset' })
     setSpanLogin({ display: 'none' })
@@ -78,10 +87,40 @@ function SignupLogin() {
         userDataSignup.nameLastname.trim() &&
         userDataSignup.username.trim() &&
         userDataSignup.password.trim() &&
-        userDataSignup.email.trim() &&
-        userDataSignup.profile.trim()
+        userDataSignup.email.trim()
         ) 
-        { setSignupClick(true) }
+        { 
+          const isUsernameExist = usersData.some(user => user.username === userDataSignup.username)
+          const isEmailExist = usersData.some(user => user.email === userDataSignup.email)
+          if (isUsernameExist) {
+            toast.warn('Username is already used', {
+              className: 'custom-toast',
+              position: "bottom-center",
+              autoClose: 4000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
+              theme: "light",
+            })
+          }
+          else if (isEmailExist) {
+              toast.warn('Email already used', {
+                className: 'custom-toast',
+                position: "bottom-center",
+                autoClose: 4000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+              })
+          }else{
+            setSignupClick(true) 
+          }
+        }
         else{
           toast.warn('Fill in the information completely', {
             className: 'custom-toast',
@@ -177,7 +216,7 @@ function SignupLogin() {
               type="text"
               name="profile"
               className="input"
-              placeholder="Profile photo link"
+              placeholder="Profile photo link (Optional)"
               value={userDataSignup.profile}
               onChange={handleInputChangeSignup}
               required
@@ -228,18 +267,20 @@ function SignupLogin() {
 
       </div>
       <ToastContainer />
+      <Data
+      loginClick={loginClick} 
+      setLoginClick={setLoginClick}
+      userDataLogin={userDataLogin} 
+      setUserDataLogin={setUserDataLogin}
+      betUserData={betUserData}
+      setUserData={setUserData}
+      />
       <Add 
       userDataSignup={userDataSignup} 
       signupClick={signupClick} 
       setSignupClick={setSignupClick} 
       setUserDataSignup={setUserDataSignup}
       handleLogInTextClick={handleLogInTextClick}
-      />
-      <Data
-      loginClick={loginClick} 
-      setLoginClick={setLoginClick}
-      userDataLogin={userDataLogin} 
-      setUserDataLogin={setUserDataLogin}
       />
     </>
   )
