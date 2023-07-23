@@ -1,15 +1,9 @@
-// *{
-//     margin: 0;
-//     padding: 0;
-//     box-sizing: border-box;
-// }
-
-
 .container{
     max-width: 50rem;
     margin: auto;
     padding-left: 2.9rem;
-    .box-add-comment{
+    .box-add-feedback{
+        margin: auto;
         box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
         padding: 1rem;
         width: 90%;
@@ -30,6 +24,15 @@
                 color: #4f4f4fcb;
                 font-weight: bold;
             }
+        .name-username{
+            margin: 0;
+            padding: 0;
+            .username{
+                font-size: 0.7rem;
+                color: #535cf9;
+                font-weight: bold;
+            }
+        }
         }
         .feedback{
             position: relative;
@@ -65,6 +68,130 @@
             }  
         }
     }
+    .feedbacks{
+        margin: 2rem 0;
+        .title {
+            margin: auto;
+            width: 95%;
+            border-bottom: 2px dashed #636363;
+            h2{
+                color: #2a2a2a;
+            }
+        }
+        .box-feedbacks{
+            margin-top: 2rem;
+            .user-feedback{
+                margin: auto;
+                margin-bottom: 0.5rem;
+                max-width: 90%;
+                height: fit-content;
+                background: linear-gradient(90deg, #f2f2f5, #8c91ef);
+                border: 0.5px solid #fff;
+                border-radius: 2.5rem;
+                padding: 0.8rem;
+                .data-user{
+                    display: flex;
+                    justify-content: space-between;
+                    .data-left{
+                        img{
+                            width: 4rem;
+                            border-radius: 50%;
+                        }
+                        display: flex;
+                        align-items: center;
+                    .name-username{
+                        margin-left: 0.5rem;
 
+                        .username{
+                            font-size: 0.7rem;
+                            color: #535cf9;
+                            font-weight: bold;
+                        } 
+                    }
+                    }
+                    h5{
+                        margin-right: 0.5rem;
+                        font-weight: 100;
+                    }
+                }
+                .feedback{
+                    .more{
+                        display: flex;
+                        align-items: center;
+                        justify-content: end;
+                        button{
+                            display: flex;
+                            align-items: center;
+                            margin-right: 0.2rem ;
+                            background-color: transparent;
+                            border: 0;
+                            cursor: pointer;
+                            .icon-heart{
+                                font-size: 1.4rem;
+                                transition: 0.2s;
+                                margin-left: 0.5rem;
+                        }
+                    }
+                    i{
+                        position: relative;
+                        margin-right: 0.5rem;
+                        font-size: 1rem;
+                        cursor: pointer;
+                        padding: 0.1rem;
+                        border-radius: 0.8rem;
+                        transition: 0.5s;
+                        &:hover{
+                            background-color: rgba(0, 0, 0, 0.055);
+                            .container-boxs{
+                                display: block;
+                            }
+                        }
+                        .container-boxs{
+                            display: none;
+                            box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+                            position: absolute;
+                            width: 10rem;
+                            height: 5rem;
+                            background-color: #e5e5e557;
+                            top: -5rem;
+                            left: 0.5rem;
+                            border-radius: 1.5rem 1.5rem 1.5rem 0;
+                            overflow: hidden;
+                            transition: 0.2s;
+                            cursor: default;
+                            .feedback-delete{
+                                width: 100%;
+                                height: 2rem;
+                                background-color: #fffdfd;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                cursor: pointer;
+                                svg{
+                                    fill: red;
+                                }
+                                p{
+                                    margin-left: 0.2rem;
+                                    font-style: normal;
+                                    color: #2a2a2a;
+                                }
+                                &:hover{
+                                    background-color: #535cf9;
+                                    p , svg{
+                                        color: #fff;
+                                        fill: #fff;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                }
+            }
+        }
+    }
 }
+
+  
+  
 

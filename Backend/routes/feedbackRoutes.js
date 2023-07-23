@@ -6,9 +6,9 @@ const handleError = require('../middleware/errorMiddleware')
 
 
 // Routes for handling feedback data
-router.get('/data/feedback', FeedbackController.getAllFeedback)
+router.get('/data/feedbacks', FeedbackController.getAllFeedback)
 router.post('/add/feedback', feedbackValidation,(req, res) => {
-        FeedbackController.createUser(req, res)
+        FeedbackController.createFeedback(req, res)
     }
     )
     router.put('/update/feedback/:id', feedbackValidation, feedbackValidation,(req, res) => {

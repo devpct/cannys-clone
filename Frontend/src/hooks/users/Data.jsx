@@ -74,11 +74,17 @@ function Data({ loginClick, setLoginClick, userDataLogin, setUserData, userData,
       if (usersData.length  !== 0) { 
         const username = localStorage.getItem('username')
         if (username) {
-          usersData.filter(user => user.username === username && 
-            (user.image === 'null' &&   user.image = ''      )
-            setUserData({name: user.nameLastname , image: user.image }))
-          }
+          const userWithUsername = usersData.find(user => user.username === username)
+
+        if (userWithUsername) {
+          const imageUrl = userWithUsername.image === 'null'
+            ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png'
+            : userWithUsername.image;
+
+          setUserData({ name: userWithUsername.nameLastname, username: userWithUsername.username, image: imageUrl })
         }
+        }
+      }
   }, [usersData])
   
 }
