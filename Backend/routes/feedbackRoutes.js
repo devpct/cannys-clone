@@ -11,8 +11,8 @@ router.post('/add/feedback', feedbackValidation,(req, res) => {
         FeedbackController.createFeedback(req, res)
     }
     )
-    router.put('/update/feedback/:id', feedbackValidation, feedbackValidation,(req, res) => {
-        FeedbackController.createUser(req, res)
+router.put('/update/feedback/:id', feedbackValidation,(req, res) => {
+        FeedbackController.updateFeedback(req, res)
 })
 router.delete('/delete/feedback/:id', FeedbackController.deleteFeedback)
 

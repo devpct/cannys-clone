@@ -14,10 +14,6 @@ const feedbackSchema = mongoose.Schema(
             type: String,
             required: true
         },
-        time_date:{
-            type: String,
-            required: true
-        },
         descriptions:{
             type: String,
             required: true
@@ -28,7 +24,8 @@ const feedbackSchema = mongoose.Schema(
         }
     },
     {
-        versionKey: false
+        versionKey: false,
+        timestamps: true
     }
 )
 

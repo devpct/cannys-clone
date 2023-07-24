@@ -7,7 +7,7 @@ import md5 from 'md5'
 import 'react-toastify/dist/ReactToastify.css'
 import '../../pages/signupLogin/signupLogin.scss'
 
-function Data({ loginClick, setLoginClick, userDataLogin, setUserData, userData, betUserData }) {
+function Data({ loginClick, setLoginClick, userDataLogin, setUserData, betUserData }) {
   const HomePage = useNavigate()
 
   const [usersData, setUsersData] = useContext(UsersDataContext)
@@ -81,7 +81,7 @@ function Data({ loginClick, setLoginClick, userDataLogin, setUserData, userData,
             ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/480px-Default_pfp.svg.png'
             : userWithUsername.image;
 
-          setUserData({ name: userWithUsername.nameLastname, username: userWithUsername.username, image: imageUrl })
+          setUserData({ id: userWithUsername._id , name: userWithUsername.nameLastname, username: userWithUsername.username, image: imageUrl })
         }
         }
       }

@@ -3,12 +3,11 @@ const Joi = require('joi')
 // Joi validation middleware for feedback input
 const createFeedbackValidation = (req, res, next) => {
     const schema = Joi.object({
-      image: Joi.string().max(400).required(),
-      nameLastname: Joi.string().max(50).required(),
-      username: Joi.string().max(40).required(),
-      time_date: Joi.string().max(40).required(),
-      descriptions: Joi.string().max(500).required(),
       like: Joi.string().max(10).required(),
+      image: Joi.string().max(400).optional(),
+      nameLastname: Joi.string().max(50).optional(),
+      username: Joi.string().max(40).optional(),
+      descriptions: Joi.string().max(500).optional(),
     })
   
     const { error } = schema.validate(req.body)

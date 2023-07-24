@@ -2,21 +2,18 @@ const mongoose = require('mongoose')
 
 const likesSchema = mongoose.Schema(
     {
-        user_id:{
+        userId:{
             type: String,
             required: true
         },
-        feedback_id: {
-            type: String,
-            required: true
-        },
-        like_date:{
+        feedbackId: {
             type: String,
             required: true
         },
     },
     {
-        versionKey: false
+        versionKey: false,
+        timestamps: true
     }
 )
 

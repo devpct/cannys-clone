@@ -5,9 +5,12 @@ import { ToastContainer } from 'react-toastify'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart } from '@fortawesome/free-solid-svg-icons'
 import DataUser from '../../hooks/users/Data'
-import Add from '../../hooks/feedback/Add'
+import AddFeedback from '../../hooks/feedback/Add'
+import AddLike from '../../hooks/likes/Add'
 import Data from '../../hooks/feedback/Data'
-import Delete from '../../hooks/feedback/Delete'
+import DeleteFeedback from '../../hooks/feedback/Delete'
+import DeleteLikeId from '../../hooks/likes/Delete'
+import Update from '../../hooks/feedback/Update'
 import './home.scss'
 
 function Home() {
@@ -16,8 +19,11 @@ function Home() {
   const [userData, setUserData] = useState(null)
   const [addFeddbackClick, setAddFeedbackClick] = useState(false)
   const [userFeedback, setUserFeedback] = useState('')
-  const [heartColor, setHeartColor] = useState('#48484883')
   const [deleteIdFeedback, setDeleteIdFeedback] = useState('')
+  const [deleteIdLike, setDeleteIdLike] = useState('')
+  const [numberLike, setNumberLike] = useState('')
+  const [addLike, setAddLike] = useState('')
+
 
   const FormPage = useNavigate()
 
@@ -61,13 +67,30 @@ function Home() {
     setUserFeedback({ description: event.target.value })
   }
 
-  const handlerHeart = (userId) => {
+  const handlerHeart = (feedbackId, likeId, statusLike) => {
+    const now = new Date()
+    const DateTime = format(now, 'yyyy/M/d - HH:mm:ss')
     setFeedbacks((prevFeedbacks) =>
-      prevFeedbacks.map((feedback) =>
-        feedback._id === userId ? { ...feedback, isLiked: !feedback.isLiked } : feedback
-      )
+      prevFeedbacks.map((feedback) => {
+        if (feedback._id === feedbackId) {
+          const newLike = feedback.isLiked ? +feedback.like - 1 : +feedback.like + 1
+          setNumberLike({ like: newLike, feedbackId })
+          return { ...feedback, isLiked: !feedback.isLiked, like: newLike }
+        } else {
+          return feedback
+        }
+      })
     )
+
+    if (statusLike === true) {
+      setDeleteIdLike(likeId)
+    }else{
+      setAddLike({ userId: userData.id, feedbackId, timeData: DateTime })
+    }
   }
+  
+  
+  
 
   const deleteFeedback = (idFeedback) => {
     const updatedFeedbacks = feedbacks.filter((feedback) => feedback._id !== idFeedback)
@@ -115,7 +138,7 @@ function Home() {
                   <div className="feedback">
                     <p>{user.descriptions}</p>
                     <div className="more">
-                    <button onClick={() => handlerHeart(user._id)}>
+                    <button onClick={() => handlerHeart(user._id , user.likeId , user.isLiked)}>
                       <span>{user.like}</span>
                       <FontAwesomeIcon
                         style={{ color: user.isLiked ? 'red' : '#48484883' }}
@@ -156,13 +179,25 @@ function Home() {
         userData={userData}
         setUserData={setUserData}
       />
-      <Add
+      <AddFeedback
         userFeedback={userFeedback}
         addFeddbackClick={addFeddbackClick}
         setAddFeedbackClick={setAddFeedbackClick}
         setFeedbacks={setFeedbacks}
       />
-      <Delete
+      <AddLike
+      addLike={addLike}
+      setAddLike={setAddLike}
+      />
+      <DeleteLikeId
+        deleteIdLike={deleteIdLike}
+        setDeleteIdLike={setDeleteIdLike}
+      />
+      <Update
+        numberLike={numberLike}
+        setNumberLike={setNumberLike}
+      />
+      <DeleteFeedback
         deleteIdFeedback={deleteIdFeedback}
         setDeleteIdFeedbac={setDeleteIdFeedback}
       />
