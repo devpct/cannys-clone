@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const config = require('./config/config')
 const userRoutes = require('./routes/userRoutes')
 const feedbackRoutes = require('./routes/feedbackRoutes')
+const likeRoutes = require('./routes/likeRoutes')
 const errorMiddleware = require('./middleware/errorMiddleware')
 const cors = require('cors')
 
@@ -30,6 +31,7 @@ mongoose
 // Connecting routes
 app.use(userRoutes)
 app.use(feedbackRoutes)
+app.use(likeRoutes)
 app.use(errorMiddleware)
 
 module.exports = app

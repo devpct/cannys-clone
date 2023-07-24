@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
 
-function Data({ setFeedbacks }) {
+function Data({ setFeedbacks, feedbacks }) {
 
     useEffect(()=>{
         axios.get('http://localhost:3000/data/feedbacks')
@@ -11,7 +11,7 @@ function Data({ setFeedbacks }) {
         .catch(error => {
           console.error(error)
         })
-    },[])
+    },[feedbacks])
 
 }
 

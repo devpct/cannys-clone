@@ -37,8 +37,8 @@ function SignupLogin() {
   const LoginPage = useNavigate()
 
   useEffect(() => {
-    document.body.style.backgroundColor = '#E1E8EE';
     const currentPath = window.location.pathname
+    document.body.style.backgroundColor = '#E1E8EE';
     if (currentPath === '/signup') {
       document.title = 'Cannys Clone | Signup'
       handleSignUpTextClick()
