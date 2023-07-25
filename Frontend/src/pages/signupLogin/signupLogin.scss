@@ -276,3 +276,23 @@ html,body {
 .custom-toast {
   width: max-content;
 }
+
+.forgot-password{
+  position: relative;
+  margin: 0;
+  font-size: 0.75rem;
+  text-align: center;
+  margin-top: 0.55rem;
+  cursor: pointer;
+  color: #535cf9;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 25%;
+    width: 13rem;
+    height: 1px;
+    background-color: #535bf9a7;
+  }
+}

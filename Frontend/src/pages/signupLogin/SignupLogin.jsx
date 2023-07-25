@@ -259,6 +259,7 @@ function SignupLogin() {
               required
             />
             </div>
+            <p className='forgot-password'>Forgot your password? Retrieve by email</p>
             <button className="submit-btn" onClick={handleLogInClick}>
               Log in
             </button>

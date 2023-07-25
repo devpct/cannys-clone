@@ -10,17 +10,19 @@ const cors = require('cors')
 const app = express()
 app.use(express.json(), cors())
 
-// Connecting to MongoDB database
+const { host, port, name, username, password } = config.db
+const dbConnectionString = `mongodb://${username}:${password}@${host}:${port}/${name}?authSource=admin`
+
 mongoose
-  .connect(config.dbConnectionString, {
+  .connect(dbConnectionString, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log('Connected to MongoDB')
-    app.listen(config.port, () => {
+    app.listen(config.app.port, () => {
       console.log(
-        `Starting development server at \x1b[34m${'http://localhost'}:${config.port}\x1b[0m`
+        `Starting development server at \x1b[34m${'http://localhost'}:${config.app.port}\x1b[0m`
       )
     })
   })

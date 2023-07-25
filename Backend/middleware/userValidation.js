@@ -1,6 +1,5 @@
 const Joi = require('joi')
 const crypto = require('crypto')
-const User = require('../models/usersModel')
 
 // Joi validation middleware for user input
 const createUserValidation = (req, res, next) => {

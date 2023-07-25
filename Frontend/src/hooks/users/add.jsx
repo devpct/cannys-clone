@@ -55,9 +55,9 @@ function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, h
           }, 1000)
         })
         .catch(error => {
-          const errroMessage = error.response.data.message
-          const quotedWord = findQuotedWord(errroMessage)
-          console.log(errroMessage)
+          // const errroMessage = error.response.data.message
+          // const quotedWord = findQuotedWord(errroMessage)
+          console.log(error)
           if (quotedWord === 'nameLastname') {
             toast.warn('First and last name must be less than 50 letters', {
               className: 'custom-toast',

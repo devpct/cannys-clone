@@ -67,13 +67,13 @@ function Home() {
     setUserFeedback({ description: event.target.value })
   }
 
-  const handlerHeart = (feedbackId, likeId, statusLike) => {
+  const handlerHeart = (feedbackId, likeId, statusLike, countLike) => {
     const now = new Date()
     const DateTime = format(now, 'yyyy/M/d - HH:mm:ss')
     setFeedbacks((prevFeedbacks) =>
       prevFeedbacks.map((feedback) => {
         if (feedback._id === feedbackId) {
-          const newLike = feedback.isLiked ? +feedback.like - 1 : +feedback.like + 1
+          const newLike = feedback.isLiked ? countLike !== 0 && +feedback.like - 1 : +feedback.like + 1
           setNumberLike({ like: newLike, feedbackId })
           return { ...feedback, isLiked: !feedback.isLiked, like: newLike }
         } else {
@@ -82,7 +82,7 @@ function Home() {
       })
     )
 
-    if (statusLike === true) {
+    if (statusLike === true && countLike !== 0) {
       setDeleteIdLike(likeId)
     }else{
       setAddLike({ userId: userData.id, feedbackId, timeData: DateTime })
@@ -138,7 +138,7 @@ function Home() {
                   <div className="feedback">
                     <p>{user.descriptions}</p>
                     <div className="more">
-                    <button onClick={() => handlerHeart(user._id , user.likeId , user.isLiked)}>
+                    <button onClick={() => handlerHeart(user._id, user.likeId, user.isLiked, user.like)}>
                       <span>{user.like}</span>
                       <FontAwesomeIcon
                         style={{ color: user.isLiked ? 'red' : '#48484883' }}
@@ -172,7 +172,6 @@ function Home() {
       )}
       <Data
         setFeedbacks={setFeedbacks}
-        feedbacks={feedbacks}
         userData={userData}
       />
       <DataUser
