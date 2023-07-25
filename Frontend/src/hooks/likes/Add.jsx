@@ -6,9 +6,8 @@ function Add({ addLike, setAddLike }) {
     useEffect(()=>{
         if (addLike !== '') {            
             axios.post('http://localhost:3000/add/like', {
-                user_id: addLike.userId,
-                feedback_id: addLike.feedbackId,
-                like_date: addLike.timeData,
+                userId: addLike.userId,
+                feedbackId: addLike.feedbackId,
             })
             .then(response => {
                 console.log(response)

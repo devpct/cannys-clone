@@ -7,12 +7,12 @@ function Add({ userFeedback, addFeddbackClick, setAddFeedbackClick, setFeedbacks
 
     useEffect(()=>{
         if (addFeddbackClick === true) {             
-              
+              console.log(userFeedback)
             axios.post('http://localhost:3000/add/feedback', {
                 image: userFeedback.image,
                 nameLastname: userFeedback.name,
                 username: userFeedback.username,
-                time_date: userFeedback.timeData,
+                timeDate: userFeedback.TD,
                 descriptions: userFeedback.description,
                 like: userFeedback.like,  
             })

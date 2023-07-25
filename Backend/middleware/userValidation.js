@@ -10,7 +10,7 @@ const createUserValidation = (req, res, next) => {
             username: Joi.string().min(4).max(40).required(),
             password: Joi.string().min(8).max(8).required(),
             email: Joi.string().max(100).email().required(),
-            image: Joi.string().max(400).required()
+            image: Joi.string().max(400).optional()
         })
 
         const { error } = schema.validate(req.body)

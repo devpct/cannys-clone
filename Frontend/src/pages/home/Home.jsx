@@ -45,7 +45,7 @@ function Home() {
         image: userData.image,
         name: userData.name,
         username: userData.username,
-        timeData: DateTime,
+        TD: DateTime,
         like: '0'
       }))
       setAddFeedbackClick(true)
@@ -92,10 +92,10 @@ function Home() {
   
   
 
-  const deleteFeedback = (idFeedback) => {
+  const deleteFeedback = (idFeedback,likeId) => {
     const updatedFeedbacks = feedbacks.filter((feedback) => feedback._id !== idFeedback)
     setFeedbacks(updatedFeedbacks)
-    setDeleteIdFeedback(idFeedback)
+    setDeleteIdFeedback({feedbackId: idFeedback, likeId})
   }
 
   return (
@@ -133,7 +133,7 @@ function Home() {
                         <p className='username'>@ {user.username}</p>
                       </div>
                     </div>
-                    <h5>{user.time_date}</h5>
+                    <h5>{user.timeDate}</h5>
                   </div>
                   <div className="feedback">
                     <p>{user.descriptions}</p>
@@ -151,7 +151,7 @@ function Home() {
                           user.username === userData.username &&
                           <div className="container-boxs">
 
-                            <div onClick={() => deleteFeedback(user._id)} className='feedback-delete'>
+                            <div onClick={() => deleteFeedback(user._id, user.likeId)} className='feedback-delete'>
                               <svg style={{ color: 'red' }} xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 448 512"><path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z" /></svg>
                               <p>Delete Feedback</p>
                             </div>
