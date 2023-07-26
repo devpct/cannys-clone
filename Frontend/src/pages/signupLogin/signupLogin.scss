@@ -296,3 +296,75 @@ html,body {
     background-color: #535bf9a7;
   }
 }
+
+
+.email-code-verification {
+  transition: 1s;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 15px;
+  background: #535cf9;
+  margin: 0 auto;
+  max-width: 400px;
+  height: 14rem;
+  padding: 3rem;
+  text-align: center;
+  z-index: 5;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.email-code-verification h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: #fff;
+}
+
+.email-code-verification input {
+  margin: 0.9rem 0;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  height: 2rem;
+  text-align: center;
+  width: 3rem;
+  outline: 0;
+  border: 0;
+  margin-right: 0.5rem;
+  color: #535cf9;
+}
+
+.email-code-verification [type="submit"] {
+  background-color: #fff;
+  color: #535cf9;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  border: 0;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  width: 8rem;
+  height: 2.5rem;
+  font-weight: bold;
+}
+
+@media (max-width: 600px) {
+  .email-code-verification {
+    max-width: 100%;
+    padding: 1rem;
+  }
+  
+  .email-code-verification h1 {
+    font-size: 1.5rem;
+  }
+  
+  .email-code-verification input {
+    font-size: 1rem;
+    height: 1.5rem;
+    width: 2rem;
+  }
+  
+  .email-code-verification [type="submit"] {
+    padding: 0.3rem;
+  }
+}

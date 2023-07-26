@@ -33,6 +33,10 @@ function SignupLogin() {
   const [loginClick, setLoginClick] = useState(false)
   const [usersData, setUsersData] = useContext(UsersDataContext)
   const [betUserData, setBetUserData] = useState(false)
+  const [forgetPasswordClick, setForgetPasswordClick] = useState({bet: false , email: ''})
+  const [verificationCode, setVerificationCode] = useState(Array(6).fill(''))
+  const [moadelVerifyCode, setMoadelVerifyCode] = useState({ display: 'none'})
+  const [loginVerifyCode, setLoginVerifyCode] = useState(false)
 
   const LoginPage = useNavigate()
 
@@ -160,6 +164,67 @@ function SignupLogin() {
       }
   }
 
+  const handleInputChange = (event) => {
+    const { name, value } = event.target
+    const index = Number(name.substring(1))
+
+    setVerificationCode((prevVerificationCode) => {
+      const newVerificationCode = [...prevVerificationCode]
+      newVerificationCode[index - 1] = value
+      return newVerificationCode
+    })
+  }
+
+  const forgotPass = email =>{
+      if (email === '') {
+        toast.warn('Email is empty', {
+          className: 'custom-toast',
+          position: "bottom-center",
+          autoClose: 2400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+      }else{
+        toast.success('The code was sent to your email', {
+          className: 'custom-toast',
+          position: "bottom-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        setForgetPasswordClick({ bet: true, email})
+        setMoadelVerifyCode({display: 'block'})
+      }
+    }
+
+  const handleSubmit = () => {
+    event.preventDefault()
+        const code = verificationCode.join('')
+        if (forgetPasswordClick.codeVerify === code) {
+          setLoginVerifyCode(true)
+        }else{
+          toast.warn('Code is wrong', {
+            className: 'custom-toast',
+            position: "bottom-center",
+            autoClose: 4000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          })
+        }
+  }
+
   return (
     <>
       <div className="form-structor">
@@ -259,14 +324,35 @@ function SignupLogin() {
               required
             />
             </div>
-            <p className='forgot-password'>Forgot your password? Retrieve by email</p>
+            <p onClick={()=>forgotPass(userDataLogin.email)} className='forgot-password'>Forgot your password? Retrieve by email</p>
             <button className="submit-btn" onClick={handleLogInClick}>
               Log in
             </button>
           </div>
         </div>
 
+
       </div>
+
+      <div style={{ display: moadelVerifyCode.display }} className="email-code-verification">
+        <h1>Email Code Verification</h1>
+      <form name="verifyForm" onSubmit={handleSubmit}>
+        <div className="inputs">
+          {verificationCode.map((value, index) => (
+            <input
+              key={index}
+              type="text"
+              name={`n${index + 1}`}
+              maxLength="1"
+              value={value}
+              onChange={handleInputChange}
+            />
+          ))}
+        </div>
+        <button type="submit">Verify code</button>
+      </form>
+    </div>
+      
       <ToastContainer />
       <Data
       loginClick={loginClick} 
@@ -275,6 +361,8 @@ function SignupLogin() {
       setUserDataLogin={setUserDataLogin}
       betUserData={betUserData}
       setUserData={setUserData}
+      loginVerifyCode={loginVerifyCode}
+      setLoginVerifyCode={setLoginVerifyCode}
       />
       <Add 
       userDataSignup={userDataSignup} 
@@ -282,6 +370,8 @@ function SignupLogin() {
       setSignupClick={setSignupClick} 
       setUserDataSignup={setUserDataSignup}
       handleLogInTextClick={handleLogInTextClick}
+      forgetPasswordClick={forgetPasswordClick}
+      setForgetPasswordClick={setForgetPasswordClick}
       />
     </>
   )

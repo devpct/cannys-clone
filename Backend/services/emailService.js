@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 const sendEmail = (to, subject, htmlContent) => {
     return new Promise((resolve, reject) => {
         transporter.sendMail({
-            from: "Cannys Clone <verifycode@edgeconf.ir>",
+            from: "Cannys Clone verifycode@edgeconf.ir",
             to,
             subject,
             html: htmlContent,
@@ -34,13 +34,13 @@ const sendEmail = (to, subject, htmlContent) => {
 
 const generateVerificationCode = () => {
   const code = crypto.randomBytes(3).toString('hex').toUpperCase()
-  return code;
+  return code
 }
 
 const sendVerifyCode = (req, res) => {
     const { email } = req.body;
     const subject = 'Verification Code';
-    const code = generateVerificationCode();
+    const code = generateVerificationCode()
 
     const htmlContent = `
     <h1>Hello!</h1>
@@ -50,7 +50,7 @@ const sendVerifyCode = (req, res) => {
 
     try {
         sendEmail(email, subject, htmlContent);
-        res.json({ message: 'Verification code sent successfully', verificationCode: code });
+        res.json({ message: 'Verification code sent successfully', verificationCode: code })
     } catch (error) {
         handleErrorResponse(res, error);
     }

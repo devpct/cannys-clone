@@ -3,8 +3,23 @@ import axios from 'axios'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, handleLogInTextClick }) {
+function Add({ userDataSignup, signupClick, setUserDataSignup, setSignupClick, handleLogInTextClick, forgetPasswordClick, setForgetPasswordClick }) {
   
+
+  useEffect(()=>{
+    if (forgetPasswordClick.bet === true) {
+
+      axios.post('http://localhost:3000/send/verifycode', { email: forgetPasswordClick.email })
+      .then(response => {
+        setForgetPasswordClick({codeVerify: response.data.verificationCode})
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+  },[forgetPasswordClick])
+
+
   const findQuotedWord = (text) => {
     const regex = /"(.*?)"/;
     const match = text.match(regex);

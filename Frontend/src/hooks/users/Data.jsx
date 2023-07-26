@@ -7,7 +7,7 @@ import md5 from 'md5'
 import 'react-toastify/dist/ReactToastify.css'
 import '../../pages/signupLogin/signupLogin.scss'
 
-function Data({ loginClick, setLoginClick, userDataLogin, setUserData, betUserData }) {
+function Data({ loginClick, setLoginClick, userDataLogin, setUserData, loginVerifyCode , setLoginVerifyCode }) {
   const HomePage = useNavigate()
 
   const [usersData, setUsersData] = useContext(UsersDataContext)
@@ -87,6 +87,52 @@ function Data({ loginClick, setLoginClick, userDataLogin, setUserData, betUserDa
       }
   }, [usersData])
   
+  // Verify Code
+  useEffect(()=>{
+    if (loginVerifyCode === true) {
+      
+      let warn = true
+      
+    usersData.forEach(user => {
+      if (user.email === userDataLogin.email) {
+        localStorage.setItem('username', user.username)
+        
+        toast.success('Login was successful', {
+          className: 'custom-toast',
+          position: "bottom-center",
+          autoClose: 2400,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        })
+        
+        setTimeout(() => {
+          HomePage('/')
+        }, 3500)
+
+        warn = false
+      }
+    })
+
+    if (warn) {
+      toast.warn('There is no such email', {
+        className: 'custom-toast',
+        position: "bottom-center",
+        autoClose: 2400,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      })
+    }
+    setLoginVerifyCode(false)
+  }
+  },[loginVerifyCode])
 }
 
 export default Data
