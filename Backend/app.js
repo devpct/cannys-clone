@@ -10,7 +10,7 @@ const cors = require('cors')
 const app = express()
 app.use(express.json(), cors())
 
-const { host, port, name, username, password } = config.db
+const { host, port, name, username, password } = require('./config/database')
 const dbConnectionString = `mongodb://${username}:${password}@${host}:${port}/${name}?authSource=admin`
 
 mongoose

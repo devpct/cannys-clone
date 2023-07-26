@@ -7,11 +7,8 @@ const handleError = require('../middleware/errorMiddleware')
 
 // Routes for handling user data
 router.get('/data/users', UserController.getAllUsers)
-router.post('/add/user', userValidation, (req, res) => {
-    UserController.createUser(req, res)
-})
+router.post('/add/user', userValidation, (req, res) => {UserController.createUser(req, res)})
 router.post('/send/verifycode', emailService.sendVerifyCode)
-
 
 router.use(handleError)
 

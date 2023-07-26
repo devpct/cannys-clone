@@ -1,17 +1,15 @@
-// Configuration for port and database URL
+// Application Configuration
 require('dotenv').config()
 
+const database = require('./database')
+const smtp = require('./smtp')
+
 const config = {
-  db: {
-    host: process.env.DB_HOST,
-    port: process.env.DB_PORT,
-    name: process.env.DB_NAME,
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
-  },
+  db: database,
   app: {
     port: process.env.APP_PORT,
   },
-};
+  smtp: smtp
+}
 
 module.exports = config
